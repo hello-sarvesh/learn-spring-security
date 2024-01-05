@@ -10,4 +10,20 @@ public class PagesController {
     public String entryHomePage() {
         return "index.html";
     }
+
+    @GetMapping("/user")
+    public String entryUserPage() {
+        return "user.html";
+    }
+
+    @GetMapping("/manager")
+    public String entryManagerPage() {
+        return "manager.html";
+    }
+
+    @GetMapping("/admin")
+    public String entryAdminPage() {
+        return "admin.html";
+    }
+
 }
