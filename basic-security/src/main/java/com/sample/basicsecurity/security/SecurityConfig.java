@@ -1,49 +1,22 @@
 package com.sample.basicsecurity.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
 
-    // Define in memeory users
+    // add support for JDBC ... no more hardcoded users :-)
     @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
-
-        // in User(org.springframework.security.core.userdetails.User) Object password
-        // string start with
-        // {noop} means no password encoder or plain text password
-        // {bcrypt} means bcrypt encoded password
-
-        // creating user object1
-        UserDetails spring = User.builder()
-                .username("spring")
-                .password("{noop}hello-spring")
-                .roles("ADMIN")
-                .build();
-
-        // creating user object2
-        UserDetails john = User.builder()
-                .username("john")
-                .password("{noop}hello-john")
-                .roles("MANAGER")
-                .build();
-
-        // creating user object3
-        UserDetails tom = User.builder()
-                .username("tom")
-                .password("{noop}hello-tom")
-                .roles("USER")
-                .build();
-
-        // returning in memory users
-        return new InMemoryUserDetailsManager(spring, john, tom);
+    public UserDetailsManager userDetailsManager(DataSource dataSource){
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     // Define filter for authorize request
