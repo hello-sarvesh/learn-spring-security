@@ -1,17 +1,17 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS members;
 
-CREATE TABLE users (
-    username varchar(50) NOT NULL,
-    password varchar(68) NOT NULL,
-    enabled tinyint NOT NULL,
-    PRIMARY KEY (username)
+CREATE TABLE members (
+    m_id varchar(50) NOT NULL,
+    pwd varchar(68) NOT NULL,
+    active tinyint NOT NULL,
+    PRIMARY KEY (m_id)
 );
 
-DROP TABLE IF EXISTS authoriries;
+DROP TABLE IF EXISTS roles;
 
-CREATE TABLE authorities (
-    username varchar(50) NOT NULL,
-    authority varchar(50) NOT NULL
-    -- UNIQUE KEY authorities_idx_1 (username,authority),
-    -- CONSTRAINT authorities_idfk_1 FOREIGN KEY (username) REFERENCES users(username)
+CREATE TABLE roles (
+    m_id varchar(50) NOT NULL,
+    roles varchar(50) NOT NULL
+    -- UNIQUE KEY authorities_idx_1 (m_id,roles),
+    -- CONSTRAINT authorities_idfk_1 FOREIGN KEY (m_id) REFERENCES members(m_id)
 );
